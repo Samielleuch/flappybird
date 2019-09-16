@@ -8,7 +8,7 @@
 import game from "../assets/Game";
 export default {
   name: "flappyBird",
-  created() {
+  mounted() {
     game();
   }
 };
