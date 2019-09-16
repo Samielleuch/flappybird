@@ -6,5 +6,8 @@ export default function(x, y, dx, dy, center, gap) {
   this.center = center;
   this.gap = gap;
   this.draw = () => {};
-  this.update = () => {};
+  this.update = () => {
+    this.x += this.dx;
+    this.y += this.dy;
+  };
 }

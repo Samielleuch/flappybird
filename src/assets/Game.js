@@ -22,7 +22,6 @@ export default function() {
     //reset the canvas
     ctx.fillStyle = "rgba(100,255,255)";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    console.log(canvas.width);
     update();
     draw();
     requestAnimationFrame(animate);

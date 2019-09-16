@@ -22,12 +22,21 @@ export default function(gapMin, gapMax, centerMin, centerMax, nb) {
       this.addPillars();
     }
   };
+  this.checkPillars = () => {
+    //function that checks if there are any pillars that are no longer visible
+    // checking the first Pillar in the Pillars Array should be enough
+    if (this.Pillars[0].x < 0) return true;
+  };
   this.draw = ctx => {
     for (let i = 0; i < this.Pillars.length; i++) {
       this.Pillars[i].draw(ctx);
     }
   };
   this.update = ctx => {
+    if (this.checkPillars()) {
+      this.Pillars.shift();
+      this.addPillars();
+    }
     for (let i = 0; i < this.Pillars.length; i++) {
       this.Pillars[i].update(ctx);
     }
