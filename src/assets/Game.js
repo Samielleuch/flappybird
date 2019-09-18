@@ -6,10 +6,11 @@ export default function() {
   const ctx = canvas.getContext("2d");
   ctx.width = 800;
   ctx.height = 800;
-  const level = new Level(70, 140, 200, 500, 3);
-  const Player = new player(60, 400, 3, -15);
+  const level = new Level(120, 200, 200, 500, 2);
+  const Player = new player(60, 400, 3, -15, "./imgs/Level.png", ctx);
   controls.hookUp();
   level.init();
+  Player.init();
 
   function update() {
     //updates here

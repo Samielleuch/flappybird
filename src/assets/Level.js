@@ -2,8 +2,8 @@ import Pillar from "./Pillar";
 export default function(gapMin, gapMax, centerMin, centerMax, nb) {
   this.numberOfPillars = nb;
   this.Pillars = [];
-  this.betweenPillars = 200;
-  this.PillarStart = 800;
+  this.betweenPillars = 300;
+  this.PillarStart = 900;
   this.addPillars = flag => {
     /* Pillars are composed of a top half and a bottom half seperated by a gap and the center of that gap this data is contained
      this data is contained in the Pillars Array
