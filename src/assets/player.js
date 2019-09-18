@@ -3,14 +3,15 @@ export default function(x, y, dx, dy) {
   this.y = y;
   this.dx = dx;
   this.dy = dy;
+  this.gravity = -5;
   this.draw = ctx => {
     ctx.fillRect(this.x, this.y, 64, 64);
   };
-  this.update = ctx => {
-    this.x += this.dx;
-
-    if (this.x >= ctx.width || this.x <= 0) {
-      this.dx = -this.dx;
-    }
+  this.move = key => {
+    if (key.isDown(key.UP)) this.y += this.dy;
+  };
+  this.update = key => {
+    this.y -= this.gravity;
+    this.move(key);
   };
 }
