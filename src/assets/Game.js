@@ -1,5 +1,6 @@
 import player from "./player";
 import Level from "./Level";
+
 import * as controls from "./Controls";
 export default function() {
   const canvas = document.querySelector("canvas");
@@ -7,7 +8,14 @@ export default function() {
   ctx.width = 800;
   ctx.height = 800;
   const level = new Level(120, 200, 200, 500, 2);
-  const Player = new player(60, 400, 3, -15, "./imgs/Level.png", ctx);
+  const Player = new player(
+    60,
+    400,
+    3,
+    -15,
+    require("@/assets/imgs/Level.png"),
+    ctx
+  );
   controls.hookUp();
   level.init();
   Player.init();
