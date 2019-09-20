@@ -7,12 +7,20 @@ export default function() {
   const ctx = canvas.getContext("2d");
   ctx.width = 800;
   ctx.height = 800;
-  const level = new Level(120, 200, 200, 500, 2);
+  const level = new Level(
+    120,
+    200,
+    200,
+    500,
+    2,
+    ctx,
+    require("@/assets/imgs/Level.png")
+  );
   const Player = new player(
     60,
     400,
     3,
-    -15,
+    -13,
     require("@/assets/imgs/Level.png"),
     ctx
   );
@@ -29,8 +37,8 @@ export default function() {
   function draw() {
     //draw here
     ctx.fillStyle = "Black";
-    Player.draw(ctx);
-    level.draw(ctx);
+    Player.draw();
+    level.draw();
   }
 
   function animate() {

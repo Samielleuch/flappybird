@@ -39,7 +39,7 @@ export default function(x, y, dx, dy, img, ctx) {
     if (key.isDown(key.UP)) this.y += this.dy;
   };
   this.update = key => {
-    // this.y -= this.gravity;
+    this.y -= this.gravity;
     this.move(key);
   };
 }

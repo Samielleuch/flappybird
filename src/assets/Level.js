@@ -1,9 +1,16 @@
 import Pillar from "./Pillar";
-export default function(gapMin, gapMax, centerMin, centerMax, nb) {
+import Sprite from "./Sprite";
+export default function(gapMin, gapMax, centerMin, centerMax, nb, ctx, src) {
   this.numberOfPillars = nb;
   this.Pillars = [];
   this.betweenPillars = 300;
   this.PillarStart = 900;
+  this.sprite = new Sprite({
+    width: 52,
+    height: 26,
+    ctx: ctx
+  });
+  this.ctx = ctx;
   this.addPillars = flag => {
     /* Pillars are composed of a top half and a bottom half seperated by a gap and the center of that gap this data is contained
      this data is contained in the Pillars Array
@@ -37,6 +44,7 @@ export default function(gapMin, gapMax, centerMin, centerMax, nb) {
     }
   };
   this.init = () => {
+    this.sprite.loadImage(src);
     //adding pilar for the first time with the flag
     this.addPillars(true);
   };
@@ -45,9 +53,9 @@ export default function(gapMin, gapMax, centerMin, centerMax, nb) {
     // checking the first Pillar in the Pillars Array should be enough
     if (this.Pillars[0].x < 0) return true;
   };
-  this.draw = ctx => {
+  this.draw = () => {
     for (let i = 0; i < this.Pillars.length; i++) {
-      this.Pillars[i].draw(ctx);
+      this.Pillars[i].draw(this.ctx, this.sprite);
     }
   };
   this.update = ctx => {
