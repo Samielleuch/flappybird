@@ -1,16 +1,11 @@
 import Pillar from "./Pillar";
-import Sprite from "./Sprite";
-export default function(gapMin, gapMax, centerMin, centerMax, nb, ctx, src) {
+export default function(gapMin, gapMax, centerMin, centerMax, nb, sprite) {
   this.numberOfPillars = nb;
   this.Pillars = [];
   this.betweenPillars = 300;
   this.PillarStart = 900;
-  this.sprite = new Sprite({
-    width: 52,
-    height: 26,
-    ctx: ctx
-  });
-  this.ctx = ctx;
+  this.backgroundMvt = 780;
+  this.sprite = sprite;
   this.addPillars = flag => {
     /* Pillars are composed of a top half and a bottom half seperated by a gap and the center of that gap this data is contained
      this data is contained in the Pillars Array
@@ -30,7 +25,8 @@ export default function(gapMin, gapMax, centerMin, centerMax, nb, ctx, src) {
           3,
           0,
           randCenter,
-          randGap
+          randGap,
+          this.sprite
         );
         increment += this.betweenPillars;
         this.Pillars.push(pillar);
@@ -39,13 +35,24 @@ export default function(gapMin, gapMax, centerMin, centerMax, nb, ctx, src) {
           centerMin + Math.floor(Math.random() * (centerMax - centerMin + 1));
       }
     } else {
-      let pillar = new Pillar(this.PillarStart, 0, 3, 0, randCenter, randGap);
+      let pillar = new Pillar(
+        this.PillarStart,
+        0,
+        3,
+        0,
+        randCenter,
+        randGap,
+        this.sprite
+      );
       this.Pillars.push(pillar);
     }
   };
   this.init = () => {
-    this.sprite.loadImage(src);
-    //adding pilar for the first time with the flag
+    this.sprite.Define("PillarHead", 1, 650, 26, 54);
+    this.sprite.Define("PillarBody", 1, 700, 26, 54);
+    this.sprite.Define("Background", 290, 0, 510, 280);
+    console.log(this.sprite.subImages);
+    //adding pillar for the first time with the flag
     this.addPillars(true);
   };
   this.checkPillars = () => {
@@ -54,11 +61,20 @@ export default function(gapMin, gapMax, centerMin, centerMax, nb, ctx, src) {
     if (this.Pillars[0].x < 0) return true;
   };
   this.draw = () => {
+    for (let i = 0; i < 2; i++) {
+      this.sprite.draw("Background", this.backgroundMvt, 0, 400, 800);
+      this.sprite.draw("Background", this.backgroundMvt - 397, 0, 400, 800);
+      this.sprite.draw("Background", this.backgroundMvt - 797, 0, 403, 800);
+    }
     for (let i = 0; i < this.Pillars.length; i++) {
-      this.Pillars[i].draw(this.ctx, this.sprite);
+      this.Pillars[i].draw(this.sprite);
     }
   };
   this.update = ctx => {
+    this.backgroundMvt -= 4;
+    if (this.backgroundMvt < 400) {
+      this.backgroundMvt = 800;
+    }
     if (this.checkPillars()) {
       this.Pillars.shift();
       this.addPillars();
